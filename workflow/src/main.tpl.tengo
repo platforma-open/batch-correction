@@ -6,6 +6,8 @@ pframes := import("@platforma-sdk/workflow-tengo:pframes")
 
 pfUMAPConv := import(":pf-umap-conv")
 pfTSNEConv := import(":pf-tsne-conv")
+pfRawCountsConv := import(":pf-counts-conv")
+pfNormCountsConv := import(":pf-norm-counts-conv")
 
 wf.prepare(func(args){
 	metaRefs := {}
@@ -27,6 +29,7 @@ wf.body(func(args) {
 	blockId := wf.blockId().getDataAsJson()
 	rawCounts := args.resolvedInput
 	inputSpec := rawCounts.spec
+	species := inputSpec.domain["pl7.app/species"]
 
 	covariates := []
 
@@ -55,18 +58,16 @@ wf.body(func(args) {
 		run()
 
 	UMAPDimImportParams := pfUMAPConv.getColumns(blockId, inputSpec)
-	UMAPPf := xsv.importFile(batchCorrection.getFile("umap_results.csv"), "csv", UMAPDimImportParams)
+	UMAPPf := xsv.importFile(batchCorrection.getFile("umap_dimensions.csv"), "csv", UMAPDimImportParams)
 
 	tSNEDimImportParams := pfTSNEConv.getColumns(blockId, inputSpec)
-	tSNEPf := xsv.importFile(batchCorrection.getFile("tsne_results.csv"), "csv", tSNEDimImportParams)
+	tSNEPf := xsv.importFile(batchCorrection.getFile("tsne_dimensions.csv"), "csv", tSNEDimImportParams)
 
-	// do the same with batch_corrected_counts.csv
-	// batchCorrectedCountsImportParams := pfCountsConv.getColumns(blockId, inputSpec)
-	// batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
+	batchCorrectedCountsImportParams := pfRawCountsConv.getColumns(blockId, inputSpec, species)
+	batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
 
-	// do the same with batch_corrected_normalized_counts.csv
-	// batchCorrectedNormalizedCountsImportParams := pfCountsConv.getColumns(blockId, inputSpec)
-	// batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)
+	batchCorrectedNormalizedCountsImportParams := pfNormCountsConv.getColumns(blockId, inputSpec, species)
+	batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)
 
 	return {
 		outputs: {
@@ -74,8 +75,8 @@ wf.body(func(args) {
 			tSNEPf: pframes.exportFrame(tSNEPf)
 		},
 		exports: {
-			UMAPPf: pframes.exportFrame(UMAPPf),
-			tSNEPf: pframes.exportFrame(tSNEPf),
+			// UMAPPf: pframes.exportFrame(UMAPPf),
+			// tSNEPf: pframes.exportFrame(tSNEPf)
 			// batchCorrectedCountsPf: pframes.exportFrame(batchCorrectedCountsPf),
 			// batchCorrectedNormalizedCountsPf: pframes.exportFrame(batchCorrectedNormalizedCountsPf)
 		}

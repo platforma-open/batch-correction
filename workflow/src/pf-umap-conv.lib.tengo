@@ -4,11 +4,11 @@ getColumns := func(blockId, inputSpec) {
   return {
     "axes": [
       {
-        "column": "SampleId",
+        "column": "Sample",
         "spec": inputSpec.axesSpec[0]
       },
       {
-        "column": "CellId",
+        "column": "Cell Barcode",
         "spec": inputSpec.axesSpec[1]
       }
       ],
@@ -40,21 +40,6 @@ getColumns := func(blockId, inputSpec) {
           },
           "annotations": {
             "pl7.app/label": "UMAP Dim2"
-          }
-        }
-      },
-      {
-        "column": "UMAP3",
-        "id": "umap3",
-        "allowNA": false,
-        "spec": {
-          "name": "pl7.app/rna-seq/umap3",
-          "valueType": "Double",
-          "domain": {
-            "pl7.app/blockId": blockId
-          },
-          "annotations": {
-            "pl7.app/label": "UMAP Dim3"
           }
         }
       }
