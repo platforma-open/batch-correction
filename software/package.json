@@ -13,8 +13,8 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "@platforma-sdk/package-builder": "^2.15.0",
-    "@platforma-open/milaboratories.runenv-python-3": "^1.1.5"
+    "@platforma-sdk/package-builder": "catalog:",
+    "@platforma-open/milaboratories.runenv-python-3": "catalog:"
   },
   "block-software": {
     "entrypoints": {
