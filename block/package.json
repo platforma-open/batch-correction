@@ -1,6 +1,6 @@
 {
   "name": "@platforma-open/milaboratories.batch-correction",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json,vue}\"",
     "build": "rm -rf ./block-pack && block-tools pack",
@@ -32,7 +32,10 @@
       "description": "Performs batch correction (ComBat & Harmony) on single-cell RNA-seq data.",
       "longDescription": "file:../docs/description.md",
       "changelog": "file:../CHANGELOG.md",
-      "tags": ["RNA-seq", "single-cell"],
+      "tags": [
+        "RNA-seq",
+        "single-cell"
+      ],
       "organization": {
         "name": "MiLaboratories Inc",
         "url": "https://milaboratories.com/",
