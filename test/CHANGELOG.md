@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction.test
 
+## 1.1.1
+
+### Patch Changes
+
+- 8af3bc2: Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes
