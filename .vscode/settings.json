@@ -7,7 +7,7 @@
         "**/index.d.ts": true,
         "**/index.js": true,
         "**/node_modules": true,
-        "**/pnpm-lock.yaml": true,
+        "**/pnpm-lock.yaml": false,
         "**/tsconfig.app.json": true,
         "**/tsconfig.json": true,
         "**/tsconfig.node.json": true,

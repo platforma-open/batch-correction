@@ -961,9 +961,6 @@ packages:
   '@milaboratories/software-pframes-conv@2.1.16':
     resolution: {integrity: sha512-/Ck2N+3BkDFDegHFG+kuoSAMS4gqWrx9gzfc91A7LmDxgwxrwDKu87D3gFgi/6yUqrz+liVmP5sztfY3YijA+A==}
 
-  '@milaboratories/software-pframes-conv@2.1.16':
-    resolution: {integrity: sha512-/Ck2N+3BkDFDegHFG+kuoSAMS4gqWrx9gzfc91A7LmDxgwxrwDKu87D3gFgi/6yUqrz+liVmP5sztfY3YijA+A==}
-
   '@milaboratories/tengo-tester@1.6.1':
     resolution: {integrity: sha512-gLUeCj6TmvNzbLYj/vX2Zz6zUaITst0Dpfkz+ycctWBuAUM+lFFZbjRHvDQlt0W6Azy0PPc8wnWsoJtspfM74w==}
     os: [darwin, linux, win32]
@@ -6140,8 +6137,6 @@ snapshots:
       - supports-color
 
   '@milaboratories/resolve-helper@1.0.2': {}
-
-  '@milaboratories/software-pframes-conv@2.1.16': {}
 
   '@milaboratories/software-pframes-conv@2.1.16': {}
 
