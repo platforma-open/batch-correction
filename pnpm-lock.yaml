@@ -13,8 +13,8 @@ catalogs:
       specifier: ^1.1.51
       version: 1.1.51
     '@milaboratories/software-pframes-conv':
-      specifier: ^2.1.13
-      version: 2.1.13
+      specifier: ^2.1.16
+      version: 2.1.16
     '@platforma-open/milaboratories.runenv-python-3':
       specifier: ^1.1.7
       version: 1.1.7
@@ -182,7 +182,7 @@ importers:
     devDependencies:
       '@milaboratories/software-pframes-conv':
         specifier: 'catalog:'
-        version: 2.1.13
+        version: 2.1.16
       '@platforma-open/milaboratories.software-small-binaries':
         specifier: ^1.15.7
         version: 1.15.7
@@ -960,6 +960,9 @@ packages:
 
   '@milaboratories/software-pframes-conv@2.1.13':
     resolution: {integrity: sha512-EQbfoceAsZvyqvYu8diovfuuiftlown+KJQ8Gish28V94x5nUsTOSSzfm3i2CJq1fudWb6BYYsPZvvKDt8VDWw==}
+
+  '@milaboratories/software-pframes-conv@2.1.16':
+    resolution: {integrity: sha512-/Ck2N+3BkDFDegHFG+kuoSAMS4gqWrx9gzfc91A7LmDxgwxrwDKu87D3gFgi/6yUqrz+liVmP5sztfY3YijA+A==}
 
   '@milaboratories/tengo-tester@1.6.1':
     resolution: {integrity: sha512-gLUeCj6TmvNzbLYj/vX2Zz6zUaITst0Dpfkz+ycctWBuAUM+lFFZbjRHvDQlt0W6Azy0PPc8wnWsoJtspfM74w==}
@@ -6137,6 +6140,8 @@ snapshots:
   '@milaboratories/resolve-helper@1.0.2': {}
 
   '@milaboratories/software-pframes-conv@2.1.13': {}
+
+  '@milaboratories/software-pframes-conv@2.1.16': {}
 
   '@milaboratories/tengo-tester@1.6.1': {}
 
