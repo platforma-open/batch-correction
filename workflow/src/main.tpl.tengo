@@ -6,6 +6,7 @@ pframes := import("@platforma-sdk/workflow-tengo:pframes")
 
 pfUMAPConv := import(":pf-umap-conv")
 pfTSNEConv := import(":pf-tsne-conv")
+pfPCAConv := import(":pf-pca-conv")
 pfRawCountsConv := import(":pf-counts-conv")
 pfNormCountsConv := import(":pf-norm-counts-conv")
 
@@ -52,6 +53,7 @@ wf.body(func(args) {
 		saveFile("tsne_dimensions.csv").
 		saveFile("batch_corrected_counts.csv").
 		saveFile("batch_corrected_normalized_counts.csv").
+		saveFile("harmony_results.csv").
 		printErrStreamToStdout().
 		saveStdoutContent().
 		cache(24 * 60 * 60 * 1000).
@@ -66,6 +68,9 @@ wf.body(func(args) {
 	batchCorrectedCountsImportParams := pfRawCountsConv.getColumns(blockId, inputSpec, species)
 	batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
 
+	PCADimImportParams := pfPCAConv.getColumns(blockId, inputSpec)
+	PCAPf := xsv.importFile(batchCorrection.getFile("harmony_results.csv"), "csv", PCADimImportParams)
+
 	batchCorrectedNormalizedCountsImportParams := pfNormCountsConv.getColumns(blockId, inputSpec, species)
 	batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)
 
@@ -75,10 +80,30 @@ wf.body(func(args) {
 			tSNEPf: pframes.exportFrame(tSNEPf)
 		},
 		exports: {
-			// UMAPPf: pframes.exportFrame(UMAPPf),
-			// tSNEPf: pframes.exportFrame(tSNEPf)
-			// batchCorrectedCountsPf: pframes.exportFrame(batchCorrectedCountsPf),
-			// batchCorrectedNormalizedCountsPf: pframes.exportFrame(batchCorrectedNormalizedCountsPf)
+			// batchCorrectedrawCounts: {
+			// 	spec: batchCorrectedCountsPf["rawCounts.spec"],
+			// 	data: batchCorrectedCountsPf["rawCounts.data"]
+			// 	},
+			UMAP1: {
+				spec: UMAPPf["umap1.spec"],
+				data: UMAPPf["umap1.data"]
+				},
+			UMAP2: {
+				spec: UMAPPf["umap2.spec"],
+				data: UMAPPf["umap2.data"]
+				},
+			tSNE1 : {
+				spec: tSNEPf["tsne1.spec"],
+				data: tSNEPf["tsne1.data"]
+				},
+			tSNE2 : {
+				spec: tSNEPf["tsne2.spec"],
+				data: tSNEPf["tsne2.data"]
+				},
+			PCembeddings: {
+				spec: PCAPf["pcvalue.spec"],
+				data: PCAPf["pcvalue.data"]
+				}
 		}
 	}
 })

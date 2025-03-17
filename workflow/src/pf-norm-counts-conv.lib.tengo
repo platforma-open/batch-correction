@@ -4,15 +4,15 @@ getColumns := func(blockId, inputSpec, species) {
   return {
     "axes": [
       {
-        "column": "SampleId",
+        "column": "Sample",
         "spec": inputSpec.axesSpec[0]
       },
       {
-        "column": "CellId",
+        "column": "Cell Barcode",
         "spec": inputSpec.axesSpec[1]
       }, 
       {
-        "column": "GeneId",
+        "column": "Ensembl Id",
         "spec": {
 						"name": "pl7.app/rna-seq/geneId",
 						"type": "String",
