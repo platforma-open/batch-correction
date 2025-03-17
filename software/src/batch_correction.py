@@ -108,6 +108,10 @@ normalized_counts_df.to_csv(os.path.join(args.output, "batch_corrected_normalize
 # **Branch 2: Apply Harmony for embedding correction**
 adata_harmony = adata.copy()  # Separate object for Harmony correction
 
+# Ensure UniqueCellId is set before running Harmony
+adata_harmony.obs["UniqueCellId"] = adata_harmony.obs["Sample"] + "_" + adata_harmony.obs["Cell Barcode"]
+adata_harmony.obs.set_index("UniqueCellId", inplace=True)
+
 # Run PCA on raw counts (no ComBat)
 print("Running PCA on raw counts...")
 sc.pp.normalize_total(adata_harmony, target_sum=1e4)
@@ -119,6 +123,17 @@ sc.tl.pca(adata_harmony, n_comps=100)
 print(f"Applying Harmony batch correction using {harmony_columns}...")
 harmony_results = hm.run_harmony(np.array(adata_harmony.obsm["X_pca"]).T, adata_harmony.obs, harmony_columns, max_iter_harmony=50)
 adata_harmony.obsm["X_pca_harmony"] = harmony_results.Z_corr.T  # Transpose back
+
+# Save Harmony-corrected PCA embeddings
+print("Saving Harmony PCA embeddings...")
+harmony_df = pd.DataFrame(adata_harmony.obsm["X_pca_harmony"], index=adata_harmony.obs.index)
+harmony_df.columns = [f"PC{i+1}" for i in range(harmony_df.shape[1])]
+harmony_df = harmony_df.reset_index().melt(id_vars=["UniqueCellId"], var_name="PC", value_name="value")
+
+harmony_df["Sample"] = harmony_df["UniqueCellId"].apply(lambda x: x.split('_')[0])
+harmony_df["Cell Barcode"] = harmony_df["UniqueCellId"].apply(lambda x: x.split('_')[1])
+harmony_df = harmony_df[["Sample", "Cell Barcode", "PC", "value"]]
+harmony_df.to_csv(os.path.join(args.output, "harmony_results.csv"), index=False)
 
 # Run UMAP and tSNE
 print("Running UMAP...")

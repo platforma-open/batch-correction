@@ -25,7 +25,7 @@
     },
     "meta": {
       "title": "Batch Correction",
-      "logo": "file:../logos/organization-logo.png",
+      "logo": "file:../logos/block-logo.png",
       "url": "https://github.com/platforma-open/batch-correction",
       "docs": "https://github.com/platforma-open/batch-correction/docs",
       "support": "mailto:support@milaboratories.com",
@@ -39,7 +39,7 @@
       "organization": {
         "name": "MiLaboratories Inc",
         "url": "https://milaboratories.com/",
-        "logo": "file:../logos/milaboratories.png"
+        "logo": "file:../logos/organization-logo.png"
       }
     }
   },

@@ -10,38 +10,38 @@ getColumns := func(blockId, inputSpec) {
       {
         "column": "Cell Barcode",
         "spec": inputSpec.axesSpec[1]
+      },
+      {
+        "column": "PC",
+        "id": "pcnum",
+        "allowNA": false,
+        "spec": {
+          "name": "pl7.app/rna-seq/pc-num",
+          "type": "String",
+          "domain": {
+            "pl7.app/blockId": blockId,
+            "pl7.app/rna-seq/batch-corrected": "true"
+          },
+          "annotations": {
+            "pl7.app/label": "Principal Component Number"
+          }
+        }
       }
       ],
     "columns": [
       {
-        "column": "UMAP1",
-        "id": "umap1",
+        "column": "value",
+        "id": "pcvalue",
         "allowNA": false,
         "spec": {
-          "name": "pl7.app/rna-seq/umap1",
+          "name": "pl7.app/rna-seq/pcvalue",
           "valueType": "Double",
           "domain": {
             "pl7.app/blockId": blockId,
             "pl7.app/rna-seq/batch-corrected": "true"
           },
           "annotations": {
-            "pl7.app/label": "UMAP Dim1"
-          }
-        }
-      },
-      {
-        "column": "UMAP2",
-        "id": "umap2",
-        "allowNA": false,
-        "spec": {
-          "name": "pl7.app/rna-seq/umap2",
-          "valueType": "Double",
-          "domain": {
-            "pl7.app/blockId": blockId,
-            "pl7.app/rna-seq/batch-corrected": "true"
-          },
-          "annotations": {
-            "pl7.app/label": "UMAP Dim2"
+            "pl7.app/label": "Principal Component Value"
           }
         }
       }
