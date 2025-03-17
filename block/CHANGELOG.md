@@ -1,5 +1,18 @@
 # @platforma-open/milaboratories.batch-correction
 
+## 1.2.0
+
+### Minor Changes
+
+- 9917888: Update to export embedding results
+
+### Patch Changes
+
+- Updated dependencies [9917888]
+  - @platforma-open/milaboratories.batch-correction.workflow@1.2.0
+  - @platforma-open/milaboratories.batch-correction.model@1.2.0
+  - @platforma-open/milaboratories.batch-correction.ui@1.2.0
+
 ## 1.1.1
 
 ### Patch Changes

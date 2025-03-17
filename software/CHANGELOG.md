@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction.software
 
+## 1.2.0
+
+### Minor Changes
+
+- 9917888: Update to export embedding results
+
 ## 1.1.1
 
 ### Patch Changes
