@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction
 
+## 1.2.1
+
+### Patch Changes
+
+- 73df5c8: Updated tags and ranking
+
 ## 1.2.0
 
 ### Minor Changes
