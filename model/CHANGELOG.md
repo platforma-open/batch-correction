@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction.model
 
+## 1.2.1
+
+### Patch Changes
+
+- 3307977: Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes
