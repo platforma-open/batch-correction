@@ -17,6 +17,7 @@ export type UiState = {
 export type BlockArgs = {
   countsRef?: PlRef;
   covariateRefs: PlRef[];
+  title?: string;
 };
 
 export const model = BlockModel.create()
@@ -79,11 +80,19 @@ export const model = BlockModel.create()
     return ctx.createPFrame([...pCols, ...upstream]);
   })
 
+  .output('isRunning', (ctx) => ctx.outputs?.getIsReadyOrError() === false)
+
   .sections((_ctx) => ([
     { type: 'link', href: '/', label: 'Main' },
     { type: 'link', href: '/umap', label: 'UMAP' },
     { type: 'link', href: '/tsne', label: 'tSNE' },
   ]))
+
+  .title((ctx) =>
+    ctx.args.title
+      ? `Batch Correction - ${ctx.args.title}`
+      : 'Batch Correction',
+  )
 
   .done();
 
