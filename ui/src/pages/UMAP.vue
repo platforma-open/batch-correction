@@ -45,13 +45,19 @@ const defaultOptions: GraphMakerProps['defaultOptions'] = [
       ],
     },
   },
+  {
+    inputName: 'grouping',
+    selectedSource: {
+      name: 'pl7.app/sampleId',
+      type: 'String',
+    },
+  },
 ];
 
 </script>
 
 <template>
   <PlBlockPage>
-    <template #title>Dimensionality Reduction</template>
     <GraphMaker v-model="app.model.ui.graphStateUMAP" chartType="scatterplot-umap" :p-frame="app.model.outputs.UMAPPf" :default-options="defaultOptions" />
   </PlBlockPage>
 </template>

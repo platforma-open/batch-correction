@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import '@milaboratories/graph-maker/styles';
-import { PlBlockPage, PlBtnGhost, PlDropdownMulti, PlDropdownRef, PlMaskIcon24, PlSlideModal } from '@platforma-sdk/ui-vue';
+import { PlBlockPage, PlDropdownMulti, PlDropdownRef } from '@platforma-sdk/ui-vue';
 import { useApp } from '../app';
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
+import type { PlRef } from '@platforma-sdk/model';
+import { plRefsEqual } from '@platforma-sdk/model';
 
 const app = useApp();
 
-// const settingsAreShown = ref(app.model.outputs.UMAPPf === undefined)
-const settingsAreShown = ref(true);
-const showSettings = () => {
-  settingsAreShown.value = true;
-};
+function setInput(inputRef?: PlRef) {
+  app.model.args.countsRef = inputRef;
+  if (inputRef)
+    app.model.args.title = app.model.outputs.countsOptions?.find((o) => plRefsEqual(o.ref, inputRef))?.label;
+  else
+    app.model.args.title = undefined;
+}
 
 const covariateOptions = computed(() => {
   return app.model.outputs.metadataOptions?.map((v) => ({
@@ -23,23 +27,18 @@ const covariateOptions = computed(() => {
 
 <template>
   <PlBlockPage>
-    <template #title>Batch Correction</template>
-    <template #append>
-      <PlBtnGhost @click.stop="showSettings">
-        Settings
-        <template #append>
-          <PlMaskIcon24 name="settings" />
-        </template>
-      </PlBtnGhost>
-    </template>
-
-    <PlSlideModal v-model="settingsAreShown">
-      <template #title>Settings</template>
-      <PlDropdownRef
-        v-model="app.model.args.countsRef" :options="app.model.outputs.countsOptions"
-        label="Select dataset"
-      />
-      <PlDropdownMulti v-model="app.model.args.covariateRefs" :options="covariateOptions" label="Covariates" />
-    </PlSlideModal>
+    <template #title>Settings</template>
+    <PlDropdownRef
+      v-model="app.model.args.countsRef" :options="app.model.outputs.countsOptions"
+      :style="{ width: '320px' }"
+      label="Select dataset"
+      clearable @update:model-value="setInput"
+    />
+    <PlDropdownMulti
+      v-model="app.model.args.covariateRefs"
+      :options="covariateOptions"
+      :style="{ width: '320px' }"
+      label="Covariates"
+    />
   </PlBlockPage>
 </template>

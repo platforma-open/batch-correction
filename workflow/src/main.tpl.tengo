@@ -51,8 +51,8 @@ wf.body(func(args) {
 		arg("--output").arg(".").
 		saveFile("umap_dimensions.csv").
 		saveFile("tsne_dimensions.csv").
-		saveFile("batch_corrected_counts.csv").
-		saveFile("batch_corrected_normalized_counts.csv").
+		// saveFile("batch_corrected_counts.csv").
+		// saveFile("batch_corrected_normalized_counts.csv").
 		saveFile("harmony_results.csv").
 		printErrStreamToStdout().
 		saveStdoutContent().
@@ -65,14 +65,14 @@ wf.body(func(args) {
 	tSNEDimImportParams := pfTSNEConv.getColumns(blockId, inputSpec)
 	tSNEPf := xsv.importFile(batchCorrection.getFile("tsne_dimensions.csv"), "csv", tSNEDimImportParams)
 
-	batchCorrectedCountsImportParams := pfRawCountsConv.getColumns(blockId, inputSpec, species)
-	batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
+	// batchCorrectedCountsImportParams := pfRawCountsConv.getColumns(blockId, inputSpec, species)
+	// batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
 
 	PCADimImportParams := pfPCAConv.getColumns(blockId, inputSpec)
 	PCAPf := xsv.importFile(batchCorrection.getFile("harmony_results.csv"), "csv", PCADimImportParams)
 
-	batchCorrectedNormalizedCountsImportParams := pfNormCountsConv.getColumns(blockId, inputSpec, species)
-	batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)
+	// batchCorrectedNormalizedCountsImportParams := pfNormCountsConv.getColumns(blockId, inputSpec, species)
+	// batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)
 
 	return {
 		outputs: {
