@@ -59,51 +59,51 @@ adata.obs = adata.obs.merge(metadata_df, on="Sample", how="left")
 for col in metadata_columns:
     adata.obs[col] = adata.obs[col].fillna("Unknown").astype("category")
 
-# **Branch 1: Apply ComBat for batch correction on raw counts**
-adata_combat = adata.copy()  # Separate object for ComBat correction
+# # **Branch 1: Apply ComBat for batch correction on raw counts**
+# adata_combat = adata.copy()  # Separate object for ComBat correction
 
-# Remove genes with zero variance within any batch
-print("Filtering genes with zero variance within any batch before ComBat...")
-dense_matrix = adata_combat.X.toarray() if isinstance(adata_combat.X, csr_matrix) else adata_combat.X
-zero_variance_per_batch = [
-    (dense_matrix[adata_combat.obs[combat_column] == batch, :].var(axis=0) == 0)
-    for batch in adata_combat.obs[combat_column].unique()
-]
-zero_variance_in_any_batch = pd.DataFrame(zero_variance_per_batch).any(axis=0)
-adata_combat = adata_combat[:, ~zero_variance_in_any_batch]
-print(f"🔍 Removed {zero_variance_in_any_batch.sum()} genes with zero variance in at least one batch.")
+# # Remove genes with zero variance within any batch
+# print("Filtering genes with zero variance within any batch before ComBat...")
+# dense_matrix = adata_combat.X.toarray() if isinstance(adata_combat.X, csr_matrix) else adata_combat.X
+# zero_variance_per_batch = [
+#     (dense_matrix[adata_combat.obs[combat_column] == batch, :].var(axis=0) == 0)
+#     for batch in adata_combat.obs[combat_column].unique()
+# ]
+# zero_variance_in_any_batch = pd.DataFrame(zero_variance_per_batch).any(axis=0)
+# adata_combat = adata_combat[:, ~zero_variance_in_any_batch]
+# print(f"🔍 Removed {zero_variance_in_any_batch.sum()} genes with zero variance in at least one batch.")
 
-# Apply ComBat
-print(f"Applying ComBat batch correction using '{combat_column}'...")
-sc.pp.combat(adata_combat, key=combat_column)
+# # Apply ComBat
+# print(f"Applying ComBat batch correction using '{combat_column}'...")
+# sc.pp.combat(adata_combat, key=combat_column)
 
-# Prevent NaN/negative values before normalization
-adata_combat.X = np.nan_to_num(adata_combat.X, nan=0.0, posinf=0.0, neginf=0.0)
-adata_combat.X[adata_combat.X < 0] = 0
+# # Prevent NaN/negative values before normalization
+# adata_combat.X = np.nan_to_num(adata_combat.X, nan=0.0, posinf=0.0, neginf=0.0)
+# adata_combat.X[adata_combat.X < 0] = 0
 
-# **Fix: Save batch-corrected counts BEFORE normalization**
-print("Saving batch-corrected count matrix...")
-corrected_counts_df = pd.DataFrame(adata_combat.X, index=adata_combat.obs.index, columns=adata_combat.var_names)
-corrected_counts_df["Sample"] = adata_combat.obs["Sample"].values
-corrected_counts_df["Cell Barcode"] = adata_combat.obs["Cell Barcode"].values
-corrected_counts_df = corrected_counts_df.melt(id_vars=["Sample", "Cell Barcode"], var_name="Ensembl Id", value_name="Raw gene expression")
-corrected_counts_df.to_csv(os.path.join(args.output, "batch_corrected_counts.csv"), index=False)
+# # **Fix: Save batch-corrected counts BEFORE normalization**
+# print("Saving batch-corrected count matrix...")
+# corrected_counts_df = pd.DataFrame(adata_combat.X, index=adata_combat.obs.index, columns=adata_combat.var_names)
+# corrected_counts_df["Sample"] = adata_combat.obs["Sample"].values
+# corrected_counts_df["Cell Barcode"] = adata_combat.obs["Cell Barcode"].values
+# corrected_counts_df = corrected_counts_df.melt(id_vars=["Sample", "Cell Barcode"], var_name="Ensembl Id", value_name="Raw gene expression")
+# corrected_counts_df.to_csv(os.path.join(args.output, "batch_corrected_counts.csv"), index=False)
 
-# **Fix: Create a copy before normalization**
-adata_norm = adata_combat.copy()
+# # **Fix: Create a copy before normalization**
+# adata_norm = adata_combat.copy()
 
-# Normalize batch-corrected counts
-print("Normalizing batch-corrected counts...")
-sc.pp.normalize_total(adata_norm, target_sum=1e4)
-sc.pp.log1p(adata_norm)
+# # Normalize batch-corrected counts
+# print("Normalizing batch-corrected counts...")
+# sc.pp.normalize_total(adata_norm, target_sum=1e4)
+# sc.pp.log1p(adata_norm)
 
-# Save batch-corrected normalized counts
-print("Saving batch-corrected normalized count matrix...")
-normalized_counts_df = pd.DataFrame(adata_norm.X, index=adata_norm.obs.index, columns=adata_norm.var_names)
-normalized_counts_df["Sample"] = adata_norm.obs["Sample"].values
-normalized_counts_df["Cell Barcode"] = adata_norm.obs["Cell Barcode"].values
-normalized_counts_df = normalized_counts_df.melt(id_vars=["Sample", "Cell Barcode"], var_name="Ensembl Id", value_name="Normalized gene expression")
-normalized_counts_df.to_csv(os.path.join(args.output, "batch_corrected_normalized_counts.csv"), index=False)
+# # Save batch-corrected normalized counts
+# print("Saving batch-corrected normalized count matrix...")
+# normalized_counts_df = pd.DataFrame(adata_norm.X, index=adata_norm.obs.index, columns=adata_norm.var_names)
+# normalized_counts_df["Sample"] = adata_norm.obs["Sample"].values
+# normalized_counts_df["Cell Barcode"] = adata_norm.obs["Cell Barcode"].values
+# normalized_counts_df = normalized_counts_df.melt(id_vars=["Sample", "Cell Barcode"], var_name="Ensembl Id", value_name="Normalized gene expression")
+# normalized_counts_df.to_csv(os.path.join(args.output, "batch_corrected_normalized_counts.csv"), index=False)
 
 # **Branch 2: Apply Harmony for embedding correction**
 adata_harmony = adata.copy()  # Separate object for Harmony correction

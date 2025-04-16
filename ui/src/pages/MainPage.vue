@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import '@milaboratories/graph-maker/styles';
-import { PlBlockPage, PlBtnGhost, PlDropdownMulti, PlDropdownRef, PlMaskIcon24, PlSlideModal } from '@platforma-sdk/ui-vue';
+import { PlBlockPage, PlDropdownMulti, PlDropdownRef } from '@platforma-sdk/ui-vue';
 import { useApp } from '../app';
-import { computed, reactive } from 'vue';
+import { computed } from 'vue';
 import type { PlRef } from '@platforma-sdk/model';
 import { plRefsEqual } from '@platforma-sdk/model';
 
 const app = useApp();
-
-const data = reactive<{
-  settingsOpen: boolean;
-}>({
-  settingsOpen: app.model.args.countsRef === undefined,
-});
 
 function setInput(inputRef?: PlRef) {
   app.model.args.countsRef = inputRef;
@@ -33,24 +27,18 @@ const covariateOptions = computed(() => {
 
 <template>
   <PlBlockPage>
-    <template #title>Batch Correction</template>
-    <template #append>
-      <PlBtnGhost @click.stop="() => data.settingsOpen = true">
-        Settings
-        <template #append>
-          <PlMaskIcon24 name="settings" />
-        </template>
-      </PlBtnGhost>
-    </template>
-
-    <PlSlideModal v-model="data.settingsOpen">
-      <template #title>Settings</template>
-      <PlDropdownRef
-        v-model="app.model.args.countsRef" :options="app.model.outputs.countsOptions"
-        label="Select dataset"
-        clearable @update:model-value="setInput"
-      />
-      <PlDropdownMulti v-model="app.model.args.covariateRefs" :options="covariateOptions" label="Covariates" />
-    </PlSlideModal>
+    <template #title>Settings</template>
+    <PlDropdownRef
+      v-model="app.model.args.countsRef" :options="app.model.outputs.countsOptions"
+      :style="{ width: '320px' }"
+      label="Select dataset"
+      clearable @update:model-value="setInput"
+    />
+    <PlDropdownMulti
+      v-model="app.model.args.covariateRefs"
+      :options="covariateOptions"
+      :style="{ width: '320px' }"
+      label="Covariates"
+    />
   </PlBlockPage>
 </template>

@@ -45,6 +45,13 @@ const defaultOptions: GraphMakerProps['defaultOptions'] = [
       ],
     },
   },
+  {
+    inputName: 'grouping',
+    selectedSource: {
+      name: 'pl7.app/sampleId',
+      type: 'String',
+    },
+  },
 ];
 
 </script>
