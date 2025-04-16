@@ -1,5 +1,16 @@
 # @platforma-open/milaboratories.batch-correction.ui
 
+## 1.3.0
+
+### Minor Changes
+
+- 4975edd: Limited functionality to Harmony correction
+
+### Patch Changes
+
+- Updated dependencies [4975edd]
+  - @platforma-open/milaboratories.batch-correction.model@1.3.0
+
 ## 1.2.1
 
 ### Patch Changes

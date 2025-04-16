@@ -1,5 +1,14 @@
 # @platforma-open/milaboratories.batch-correction
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [4975edd]
+  - @platforma-open/milaboratories.batch-correction.workflow@1.3.0
+  - @platforma-open/milaboratories.batch-correction.model@1.3.0
+  - @platforma-open/milaboratories.batch-correction.ui@1.3.0
+
 ## 1.2.2
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction.software
 
+## 1.3.0
+
+### Minor Changes
+
+- 4975edd: Limited functionality to Harmony correction
+
 ## 1.2.1
 
 ### Patch Changes
