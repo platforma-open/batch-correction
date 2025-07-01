@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction
 
+## 1.3.0
+
+### Minor Changes
+
+- dd1871e: allow prepare venv on Windows
+
 ## 1.2.4
 
 ### Patch Changes
