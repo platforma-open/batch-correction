@@ -1,5 +1,14 @@
 # @platforma-open/milaboratories.batch-correction.test
 
+## 1.2.2
+
+### Patch Changes
+
+- 96449e8: technical release
+- c06d5b3: technical release
+- 17e8750: technical release
+- c3bf16f: technical release
+
 ## 1.2.1
 
 ### Patch Changes

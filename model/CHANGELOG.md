@@ -1,5 +1,14 @@
 # @platforma-open/milaboratories.batch-correction.model
 
+## 1.3.1
+
+### Patch Changes
+
+- 96449e8: technical release
+- c06d5b3: technical release
+- 17e8750: technical release
+- c3bf16f: technical release
+
 ## 1.3.0
 
 ### Minor Changes

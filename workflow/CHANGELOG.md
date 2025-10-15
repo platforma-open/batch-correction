@@ -1,5 +1,19 @@
 # @platforma-open/milaboratories.batch-correction.workflow
 
+## 1.3.2
+
+### Patch Changes
+
+- 96449e8: technical release
+- c06d5b3: technical release
+- 17e8750: technical release
+- c3bf16f: technical release
+- Updated dependencies [96449e8]
+- Updated dependencies [c06d5b3]
+- Updated dependencies [17e8750]
+- Updated dependencies [c3bf16f]
+  - @platforma-open/milaboratories.batch-correction.software@1.3.1
+
 ## 1.3.1
 
 ### Patch Changes
