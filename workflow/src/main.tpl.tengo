@@ -36,15 +36,27 @@ wf.body(func(args) {
 		covariates = append(covariates, v)
 	}
 	
-	csvCovariates := xsv.exportFrame(covariates, "csv", {})
+	// Set default memory and CPU for the covariates export and the result imports
+	// (one row per cell, or per cell and PC - much smaller than the counts matrix).
+	defaultConvMem := "16GiB" // @TODO: set based on the size of the input
+	defaultConvCpu := 1 // @TODO: set based on the size of the input
 
-	csvCounts := xsv.exportFrame([rawCounts], "csv", {})
+	csvCovariates := xsv.exportFrame(covariates, "csv", { mem: defaultConvMem, cpu: defaultConvCpu })
+
+	// The counts export is the heaviest conversion in the block: the long-format counts p-column
+	// holds one row per non-zero (cell, gene) pair, which reaches hundreds of millions of rows on
+	// real datasets. Parquet keeps it columnar, instead of paying CSV text encoding for three
+	// high-cardinality string columns.
+	countsConvMem := "32GiB" // @TODO: set based on the size of the input
+	countsConvCpu := 4 // @TODO: set based on the size of the input
+
+	countsParquet := xsv.exportFrame([rawCounts], "parquet", { mem: countsConvMem, cpu: countsConvCpu })
 
 	batchCorrection := exec.builder().
 		software(assets.importSoftware("@platforma-open/milaboratories.batch-correction.software:calculate-batchCorrection")).
-		addFile("rawCounts.csv", csvCounts).
+		addFile("rawCounts.parquet", countsParquet).
 		addFile("metadata.csv", csvCovariates).
-		arg("--counts").arg("rawCounts.csv").
+		arg("--counts").arg("rawCounts.parquet").
 		arg("--metadata").arg("metadata.csv").
 		arg("--output").arg(".").
 		saveFile("umap_dimensions.csv").
@@ -58,16 +70,16 @@ wf.body(func(args) {
 		run()
 
 	UMAPDimImportParams := pfUMAPConv.getColumns(blockId, inputSpec)
-	UMAPPf := xsv.importFile(batchCorrection.getFile("umap_dimensions.csv"), "csv", UMAPDimImportParams)
+	UMAPPf := xsv.importFile(batchCorrection.getFile("umap_dimensions.csv"), "csv", UMAPDimImportParams, { mem: defaultConvMem, cpu: defaultConvCpu })
 
 	tSNEDimImportParams := pfTSNEConv.getColumns(blockId, inputSpec)
-	tSNEPf := xsv.importFile(batchCorrection.getFile("tsne_dimensions.csv"), "csv", tSNEDimImportParams)
+	tSNEPf := xsv.importFile(batchCorrection.getFile("tsne_dimensions.csv"), "csv", tSNEDimImportParams, { mem: defaultConvMem, cpu: defaultConvCpu })
 
 	// batchCorrectedCountsImportParams := pfRawCountsConv.getColumns(blockId, inputSpec, species)
 	// batchCorrectedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_counts.csv"), "csv", batchCorrectedCountsImportParams)
 
 	PCADimImportParams := pfPCAConv.getColumns(blockId, inputSpec)
-	PCAPf := xsv.importFile(batchCorrection.getFile("harmony_results.csv"), "csv", PCADimImportParams)
+	PCAPf := xsv.importFile(batchCorrection.getFile("harmony_results.csv"), "csv", PCADimImportParams, { mem: defaultConvMem, cpu: defaultConvCpu })
 
 	// batchCorrectedNormalizedCountsImportParams := pfNormCountsConv.getColumns(blockId, inputSpec, species)
 	// batchCorrectedNormalizedCountsPf := xsv.importFile(batchCorrection.getFile("batch_corrected_normalized_counts.csv"), "csv", batchCorrectedNormalizedCountsImportParams)

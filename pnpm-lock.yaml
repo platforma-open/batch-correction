@@ -19,8 +19,8 @@ catalogs:
       specifier: 1.4.0
       version: 1.4.0
     '@platforma-open/milaboratories.runenv-python-3':
-      specifier: ^1.1.16
-      version: 1.1.16
+      specifier: ^1.14.1
+      version: 1.14.1
     '@platforma-sdk/block-kind':
       specifier: 1.1.0
       version: 1.1.0
@@ -175,7 +175,7 @@ importers:
     devDependencies:
       '@platforma-open/milaboratories.runenv-python-3':
         specifier: 'catalog:'
-        version: 1.1.16
+        version: 1.14.1
       '@platforma-sdk/block-tools':
         specifier: 'catalog:'
         version: 2.16.12(@types/node@24.5.2)
@@ -1538,8 +1538,50 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@platforma-open/milaboratories.runenv-python-3@1.1.16':
-    resolution: {integrity: sha512-A46M7cK1uVW4itLjXX9nodZm97ETcDBDQPQpBsPmu+Wjy8wlyHxUUH/v8KvtW45gNcW+yNO0LvzqE0u4GL86Jg==}
+  '@platforma-open/milaboratories.runenv-python-3.10.21-clustcr@0.2.0':
+    resolution: {integrity: sha512-EKDjVVTzxSgWvfaitCxwqg/3i01NvRSvKk3KrWKgPa89rOW2Zjmwbtv6uZa+nUF3LRvwKSEUm1nOSYaSLq35+A==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-antibody-design@0.2.0':
+    resolution: {integrity: sha512-TzpMQ/4xC58PH/oy5BAfPBjbrVfOOcOrVivXJCzrOFfdmnKYqt83iFVBi0Ddr99M0S9vANKXzr1mKweobiDrNw==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-atls@1.2.7':
+    resolution: {integrity: sha512-vJiU68NKgyupW5meeWB/pZZ8y5wewPV6/EcRQ2BwUhSyikDQrn83XzBlc/nTu9UmbYmBqQTrt59x0qKtcC0ILw==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-clustering@0.1.1':
+    resolution: {integrity: sha512-hnr1tf0dwoqTyjtUVZcwQm13O0V8kz4jCUz+yvOgdvWMrbg4o/h1KbghtM8HivI+tRoowc629QJWdy0bc7inQA==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-h5ad@1.1.5':
+    resolution: {integrity: sha512-cuGk6NMBocvNePoMTnDW4z8eIF5RQdDcgwuPHg9atW9/veOOp02p5jk0EwxmnbMSVV0yDwRMd+0crQAQqW9bCA==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-hilary@0.2.0':
+    resolution: {integrity: sha512-/wtxkJoYWkWGI6/Kn+ZdWSRbxN1oAVQniDfa55830ZjvuvhkGM+16Mzme5VhFDeRJdNE4S874SZGOyf4KpSGEQ==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-humanness@0.2.0':
+    resolution: {integrity: sha512-YjKFPXe+caABLre5oZTwAxFHvVCEb5K8rVTEIUBhFYMtfLipVIix0LXi6LxWoOYdhoEeKgIc4zlWFDKs1xaEoQ==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-parapred@1.1.0':
+    resolution: {integrity: sha512-nEM4eEj7pFT6yi+P5028qtgK5v9A9H0XdVHDtrKX7xW5Jipc1RIliOEU3gzaH0E7UAzPFQGSqShlwakRcGXwdQ==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-pgen@0.3.0':
+    resolution: {integrity: sha512-/dbewpNO7GqjwcqKQxxS8MW82zAdBo8yLt9uWs+jP1+Rw7Rb21eOFyyoMCwDScKHhvt/BA77xzGilsDXnElOKQ==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-rapids@1.7.2':
+    resolution: {integrity: sha512-rCG+R9WjdopEtEgJcSWNRIWhpo1ABGnA7rPn0BF6ufvLOtKXOGtaGENI7BJlkEaLb2Cbh2XUUgS5l2r5WGhIRw==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-sccoda@1.3.6':
+    resolution: {integrity: sha512-NAacPe2uFxf5zqDAa70bblP4ZicvA52lVyzhV7IzlyeEIClAsGatLbitMnRghc2TepwYhQY4EbvElkKDFaSSGw==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-scientific-slim@1.1.0':
+    resolution: {integrity: sha512-CSLEjBYUdHDf66QAfgQ9jo+MoW63Wr0ygdIncJE2siO2jMUzYCqgCNd8bMjaMfZa3YBC9bHca3Cjxbp4VYc54A==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-torch-cuda@0.2.0':
+    resolution: {integrity: sha512-PRGkgsVY08tQvoucU8fJmeCF+x9XjiHHjNTbxWqddqx2EZpiUvmylkxtU8i8xJW13cesAI+xHv3NsVUXQaRDqA==}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10@1.3.26':
+    resolution: {integrity: sha512-qHrBmmormpmzy+Ribrgyf4jFM0Yp33NZjvc9sLfVwMStGwXFaThTXraZmliCLbUImdcZmQV6pWqPF6HYK0Da5w==}
+
+  '@platforma-open/milaboratories.runenv-python-3@1.14.1':
+    resolution: {integrity: sha512-e7b2N5ahGXVlMoi+0fuIBVqNQyl5Fxqdsqn8XlATc9aw20iMHTmTgp/hkZdS3E2O/gXi+l1ehZATobYtVcAc3Q==}
 
   '@platforma-open/milaboratories.software-ptabler.schema@1.15.27':
     resolution: {integrity: sha512-z703BUlCzWYAte/WPTlwFALhc2q3bO10Z1f0NyMyxN1ECTDk4YhOom6euA6lP43R6Prbmt78oif7b7a1hC3cWg==}
@@ -7477,7 +7519,7 @@ snapshots:
       oxlint: 1.63.0
       oxlint-plugin-eslint: 1.63.0
       rolldown: 1.2.13
-      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.5.4))
+      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.6.3))
       rollup-plugin-copy: 3.5.0
       rollup-plugin-sourcemaps2: 0.5.9(@types/node@24.5.2)(rollup@4.25.0)
       typescript: 7.0.2
@@ -7523,7 +7565,7 @@ snapshots:
       oxlint: 1.63.0
       oxlint-plugin-eslint: 1.63.0
       rolldown: 1.2.13
-      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.5.4))
+      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.6.3))
       rollup-plugin-copy: 3.5.0
       rollup-plugin-sourcemaps2: 0.5.9(@types/node@24.5.2)(rollup@4.25.0)
       typescript: 7.0.2
@@ -7569,7 +7611,7 @@ snapshots:
       oxlint: 1.63.0
       oxlint-plugin-eslint: 1.63.0
       rolldown: 1.2.13
-      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.5.4))
+      rolldown-plugin-dts: 0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.6.3))
       rollup-plugin-copy: 3.5.0
       rollup-plugin-sourcemaps2: 0.5.9(@types/node@24.5.2)(rollup@4.25.0)
       typescript: 7.0.2
@@ -7993,7 +8035,50 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@platforma-open/milaboratories.runenv-python-3@1.1.16': {}
+  '@platforma-open/milaboratories.runenv-python-3.10.21-clustcr@0.2.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-antibody-design@0.2.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-atls@1.2.7': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-clustering@0.1.1': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-h5ad@1.1.5': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-hilary@0.2.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-humanness@0.2.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-parapred@1.1.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-pgen@0.3.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-rapids@1.7.2': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-sccoda@1.3.6': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-scientific-slim@1.1.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10-torch-cuda@0.2.0': {}
+
+  '@platforma-open/milaboratories.runenv-python-3.12.10@1.3.26': {}
+
+  '@platforma-open/milaboratories.runenv-python-3@1.14.1':
+    dependencies:
+      '@platforma-open/milaboratories.runenv-python-3.10.21-clustcr': 0.2.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10': 1.3.26
+      '@platforma-open/milaboratories.runenv-python-3.12.10-antibody-design': 0.2.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-atls': 1.2.7
+      '@platforma-open/milaboratories.runenv-python-3.12.10-clustering': 0.1.1
+      '@platforma-open/milaboratories.runenv-python-3.12.10-h5ad': 1.1.5
+      '@platforma-open/milaboratories.runenv-python-3.12.10-hilary': 0.2.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-humanness': 0.2.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-parapred': 1.1.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-pgen': 0.3.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-rapids': 1.7.2
+      '@platforma-open/milaboratories.runenv-python-3.12.10-sccoda': 1.3.6
+      '@platforma-open/milaboratories.runenv-python-3.12.10-scientific-slim': 1.1.0
+      '@platforma-open/milaboratories.runenv-python-3.12.10-torch-cuda': 0.2.0
 
   '@platforma-open/milaboratories.software-ptabler.schema@1.15.27':
     dependencies:
@@ -12477,7 +12562,7 @@ snapshots:
     dependencies:
       glob: 10.4.5
 
-  rolldown-plugin-dts@0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.5.4)):
+  rolldown-plugin-dts@0.28.6(@volar/typescript@2.4.28)(@vue/language-core@3.3.10)(rolldown@1.2.13)(typescript@7.0.2)(vue-tsc@3.3.10(typescript@5.6.3)):
     dependencies:
       dts-resolver: 3.0.0
       get-tsconfig: 5.0.0-beta.6
