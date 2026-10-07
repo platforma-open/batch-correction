@@ -7,8 +7,6 @@ pframes := import("@platforma-sdk/workflow-tengo:pframes")
 pfUMAPConv := import(":pf-umap-conv")
 pfTSNEConv := import(":pf-tsne-conv")
 pfPCAConv := import(":pf-pca-conv")
-pfRawCountsConv := import(":pf-counts-conv")
-pfNormCountsConv := import(":pf-norm-counts-conv")
 
 wf.prepare(func(args){
 	metaRefs := {}
