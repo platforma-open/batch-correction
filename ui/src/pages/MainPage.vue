@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import "@milaboratories/graph-maker/styles";
 import { PlBlockPage, PlDropdownMulti, PlDropdownRef } from "@platforma-sdk/ui-vue";
 import { useApp } from "../app";
 import { computed } from "vue";
@@ -9,12 +8,12 @@ import { plRefsEqual } from "@platforma-sdk/model";
 const app = useApp();
 
 function setInput(inputRef?: PlRef) {
-  app.model.args.countsRef = inputRef;
+  app.model.data.countsRef = inputRef;
   if (inputRef)
-    app.model.args.title = app.model.outputs.countsOptions?.find((o) =>
+    app.model.data.title = app.model.outputs.countsOptions?.find((o) =>
       plRefsEqual(o.ref, inputRef),
     )?.label;
-  else app.model.args.title = undefined;
+  else app.model.data.title = undefined;
 }
 
 const covariateOptions = computed(() => {
@@ -31,7 +30,7 @@ const covariateOptions = computed(() => {
   <PlBlockPage>
     <template #title>Settings</template>
     <PlDropdownRef
-      v-model="app.model.args.countsRef"
+      v-model="app.model.data.countsRef"
       :options="app.model.outputs.countsOptions"
       :style="{ width: '320px' }"
       label="Select dataset"
@@ -39,7 +38,7 @@ const covariateOptions = computed(() => {
       @update:model-value="setInput"
     />
     <PlDropdownMulti
-      v-model="app.model.args.covariateRefs"
+      v-model="app.model.data.covariateRefs"
       :options="covariateOptions"
       :style="{ width: '320px' }"
       label="Covariates"

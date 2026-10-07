@@ -1,37 +1,38 @@
-import type { GraphMakerState } from "@milaboratories/graph-maker";
-import type { InferOutputsType, PFrameHandle, PlRef } from "@platforma-sdk/model";
-import { BlockModel, isPColumn, isPColumnSpec } from "@platforma-sdk/model";
+import { kind } from "@platforma-open/milaboratories.batch-correction.kind";
+import type { InferOutputsType, PFrameHandle, TreeNodeAccessor } from "@platforma-sdk/model";
+import { BlockModelV3, isPColumn, isPColumnSpec } from "@platforma-sdk/model";
+import { blockDataModel } from "./dataModel";
+import type { BlockArgs } from "./types";
 
-export type UiState = {
-  graphStateUMAP: GraphMakerState;
-  graphStateTSNE: GraphMakerState;
-};
+export { blockDataModel } from "./dataModel";
+export type { BlockArgs, BlockData, BlockUiState } from "./types";
 
-export type BlockArgs = {
-  countsRef?: PlRef;
-  covariateRefs: PlRef[];
-  title?: string;
-};
+export const platforma = BlockModelV3.create({ dataModel: blockDataModel, kind })
 
-export const model = BlockModel.create()
+  // The run gate. Throwing shows the reason in the UI. V1 had no `.argsValid`,
+  // so a missing dataset or an empty covariate list only failed at run time.
+  .args<BlockArgs>((data): BlockArgs => {
+    const { graphStateUMAP: _graphStateUMAP, graphStateTSNE: _graphStateTSNE, ...args } = data;
 
-  .withArgs<BlockArgs>({
-    covariateRefs: [],
+    if (args.countsRef === undefined) {
+      throw new Error("Select a dataset");
+    }
+    // Harmony needs at least one covariate to correct for.
+    if (args.covariateRefs.length === 0) {
+      throw new Error("Select at least one covariate");
+    }
+
+    return args;
   })
 
-  .withUiState<UiState>({
-    graphStateUMAP: {
-      title: "UMAP",
-      template: "dots",
-    },
-    graphStateTSNE: {
-      title: "tSNE",
-      template: "dots",
-    },
-  })
+  // Inverse of the kind's init-params contract: the two inputs a user picks by
+  // hand. `title` is left out — the UI derives it from the chosen dataset.
+  .templateParams((data) => ({
+    countsRef: data.countsRef,
+    covariateRefs: data.covariateRefs,
+  }))
 
   .output("countsOptions", (ctx) =>
-    // I've added these "||" for backward compatibility (As I see, the shape of PColum was changed)
     ctx.resultPool.getOptions(
       (spec) =>
         isPColumnSpec(spec) &&
@@ -45,7 +46,10 @@ export const model = BlockModel.create()
     ctx.resultPool.getOptions((spec) => isPColumnSpec(spec) && spec.name === "pl7.app/metadata"),
   )
 
-  .output("UMAPPf", (ctx): PFrameHandle | undefined => {
+  // `withStatus` on the two plot frames: GraphMaker's `p-frame` prop takes the
+  // status-wrapped output. Each lambda checks the block's own output first, so
+  // before a run it returns a stable undefined without reading the result pool.
+  .outputWithStatus("UMAPPf", (ctx): PFrameHandle | undefined => {
     const pCols = ctx.outputs?.resolve("UMAPPf")?.getPColumns();
     if (pCols === undefined) {
       return undefined;
@@ -55,13 +59,13 @@ export const model = BlockModel.create()
     const upstream = ctx.resultPool
       .getData()
       .entries.map((v) => v.obj)
-      .filter(isPColumn)
+      .filter(isPColumn<TreeNodeAccessor>)
       .filter((column) => column.id.includes("metadata"));
 
     return ctx.createPFrame([...pCols, ...upstream]);
   })
 
-  .output("tSNEPf", (ctx): PFrameHandle | undefined => {
+  .outputWithStatus("tSNEPf", (ctx): PFrameHandle | undefined => {
     const pCols = ctx.outputs?.resolve("tSNEPf")?.getPColumns();
     if (pCols === undefined) {
       return undefined;
@@ -71,7 +75,7 @@ export const model = BlockModel.create()
     const upstream = ctx.resultPool
       .getData()
       .entries.map((v) => v.obj)
-      .filter(isPColumn)
+      .filter(isPColumn<TreeNodeAccessor>)
       .filter((column) => column.id.includes("metadata"));
 
     return ctx.createPFrame([...pCols, ...upstream]);
@@ -85,8 +89,8 @@ export const model = BlockModel.create()
     { type: "link", href: "/tsne", label: "tSNE" },
   ])
 
-  .title((ctx) => (ctx.args.title ? `Batch Correction - ${ctx.args.title}` : "Batch Correction"))
+  .title((ctx) => (ctx.data.title ? `Batch Correction - ${ctx.data.title}` : "Batch Correction"))
 
   .done();
 
-export type BlockOutputs = InferOutputsType<typeof model>;
+export type BlockOutputs = InferOutputsType<typeof platforma>;
