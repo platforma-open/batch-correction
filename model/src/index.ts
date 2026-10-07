@@ -1,13 +1,6 @@
-import type { GraphMakerState } from '@milaboratories/graph-maker';
-import type {
-  InferOutputsType,
-  PFrameHandle,
-  PlRef } from '@platforma-sdk/model';
-import {
-  BlockModel,
-  isPColumn,
-  isPColumnSpec,
-} from '@platforma-sdk/model';
+import type { GraphMakerState } from "@milaboratories/graph-maker";
+import type { InferOutputsType, PFrameHandle, PlRef } from "@platforma-sdk/model";
+import { BlockModel, isPColumn, isPColumnSpec } from "@platforma-sdk/model";
 
 export type UiState = {
   graphStateUMAP: GraphMakerState;
@@ -28,28 +21,32 @@ export const model = BlockModel.create()
 
   .withUiState<UiState>({
     graphStateUMAP: {
-      title: 'UMAP',
-      template: 'dots',
+      title: "UMAP",
+      template: "dots",
     },
     graphStateTSNE: {
-      title: 'tSNE',
-      template: 'dots',
+      title: "tSNE",
+      template: "dots",
     },
   })
 
-  .output('countsOptions', (ctx) =>
+  .output("countsOptions", (ctx) =>
     // I've added these "||" for backward compatibility (As I see, the shape of PColum was changed)
-    ctx.resultPool.getOptions((spec) => isPColumnSpec(spec)
-      && spec.name === 'pl7.app/rna-seq/countMatrix' && spec.domain?.['pl7.app/rna-seq/normalized'] === 'false'
-    , { includeNativeLabel: true, addLabelAsSuffix: true }),
+    ctx.resultPool.getOptions(
+      (spec) =>
+        isPColumnSpec(spec) &&
+        spec.name === "pl7.app/rna-seq/countMatrix" &&
+        spec.domain?.["pl7.app/rna-seq/normalized"] === "false",
+      { includeNativeLabel: true, addLabelAsSuffix: true },
+    ),
   )
 
-  .output('metadataOptions', (ctx) =>
-    ctx.resultPool.getOptions((spec) => isPColumnSpec(spec) && spec.name === 'pl7.app/metadata'),
+  .output("metadataOptions", (ctx) =>
+    ctx.resultPool.getOptions((spec) => isPColumnSpec(spec) && spec.name === "pl7.app/metadata"),
   )
 
-  .output('UMAPPf', (ctx): PFrameHandle | undefined => {
-    const pCols = ctx.outputs?.resolve('UMAPPf')?.getPColumns();
+  .output("UMAPPf", (ctx): PFrameHandle | undefined => {
+    const pCols = ctx.outputs?.resolve("UMAPPf")?.getPColumns();
     if (pCols === undefined) {
       return undefined;
     }
@@ -59,13 +56,13 @@ export const model = BlockModel.create()
       .getData()
       .entries.map((v) => v.obj)
       .filter(isPColumn)
-      .filter((column) => column.id.includes('metadata'));
+      .filter((column) => column.id.includes("metadata"));
 
     return ctx.createPFrame([...pCols, ...upstream]);
   })
 
-  .output('tSNEPf', (ctx): PFrameHandle | undefined => {
-    const pCols = ctx.outputs?.resolve('tSNEPf')?.getPColumns();
+  .output("tSNEPf", (ctx): PFrameHandle | undefined => {
+    const pCols = ctx.outputs?.resolve("tSNEPf")?.getPColumns();
     if (pCols === undefined) {
       return undefined;
     }
@@ -75,24 +72,20 @@ export const model = BlockModel.create()
       .getData()
       .entries.map((v) => v.obj)
       .filter(isPColumn)
-      .filter((column) => column.id.includes('metadata'));
+      .filter((column) => column.id.includes("metadata"));
 
     return ctx.createPFrame([...pCols, ...upstream]);
   })
 
-  .output('isRunning', (ctx) => ctx.outputs?.getIsReadyOrError() === false)
+  .output("isRunning", (ctx) => ctx.outputs?.getIsReadyOrError() === false)
 
-  .sections((_ctx) => ([
-    { type: 'link', href: '/', label: 'Main' },
-    { type: 'link', href: '/umap', label: 'UMAP' },
-    { type: 'link', href: '/tsne', label: 'tSNE' },
-  ]))
+  .sections((_ctx) => [
+    { type: "link", href: "/", label: "Main" },
+    { type: "link", href: "/umap", label: "UMAP" },
+    { type: "link", href: "/tsne", label: "tSNE" },
+  ])
 
-  .title((ctx) =>
-    ctx.args.title
-      ? `Batch Correction - ${ctx.args.title}`
-      : 'Batch Correction',
-  )
+  .title((ctx) => (ctx.args.title ? `Batch Correction - ${ctx.args.title}` : "Batch Correction"))
 
   .done();
 
