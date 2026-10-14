@@ -8,7 +8,7 @@ from scipy.sparse import csr_matrix
 
 # Argument parsing
 parser = argparse.ArgumentParser(description="Batch correction for scRNA-seq using ComBat (counts) and Harmony (embeddings)")
-parser.add_argument("--counts", help="Path to raw counts CSV file", required=True)
+parser.add_argument("--counts", help="Path to long-format raw counts Parquet file", required=True)
 parser.add_argument("--metadata", help="Path to metadata CSV file", required=True)
 parser.add_argument("--output", help="Path to output directory", required=True)
 args = parser.parse_args()
@@ -18,7 +18,13 @@ os.makedirs(args.output, exist_ok=True)
 
 # Load raw count data (long format)
 print("Loading raw counts...")
-counts_df = pd.read_csv(args.counts, dtype={"Sample": str, "Cell Barcode": str, "Ensembl Id": str})
+counts_df = pd.read_parquet(args.counts)
+
+# Upstream blocks label the cell axis 'Cell ID'; normalize to the internal name 'Cell Barcode'
+if "Cell ID" in counts_df.columns and "Cell Barcode" not in counts_df.columns:
+    counts_df = counts_df.rename(columns={"Cell ID": "Cell Barcode"})
+
+counts_df = counts_df.astype({"Sample": str, "Cell Barcode": str, "Ensembl Id": str})
 
 # Load metadata
 print("Loading metadata...")
