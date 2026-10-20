@@ -1,5 +1,11 @@
 # @platforma-open/milaboratories.batch-correction
 
+## 1.4.1
+
+### Patch Changes
+
+- b32762d: Release every package through npm trusted publishing (OIDC) so each package's trusted publisher is used before it expires.
+
 ## 1.4.0
 
 ### Minor Changes
